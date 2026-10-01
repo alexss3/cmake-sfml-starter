@@ -1,0 +1,116 @@
+{
+  "version": "2.0.0",
+
+  "tasks": [
+    {
+      "label": "CMake: Configure Debug",
+      "type": "process",
+      "command": "cmake",
+      "args": [
+        "-S", ".",
+        "-B", "build/debug",
+        "-G", "Ninja",
+        "-DCMAKE_BUILD_TYPE=Debug",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$gcc",
+      "detail": "Configure a Debug Ninja build in build/debug"
+    },
+    {
+      "label": "CMake: Build Debug",
+      "type": "process",
+      "command": "cmake",
+      "args": [
+        "--build", "build/debug"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOn": "CMake: Configure Debug",
+      "dependsOrder": "sequence",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$gcc",
+      "detail": "Configure and build Debug with Ctrl+Shift+B"
+    },
+    {
+      "label": "CMake: Configure Release",
+      "type": "process",
+      "command": "cmake",
+      "args": [
+        "-S", ".",
+        "-B", "build/release",
+        "-G", "Ninja",
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$gcc",
+      "detail": "Configure a Release Ninja build in build/release"
+    },
+    {
+      "label": "CMake: Build Release",
+      "type": "process",
+      "command": "cmake",
+      "args": [
+        "--build", "build/release"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "dependsOn": "CMake: Configure Release",
+      "dependsOrder": "sequence",
+      "problemMatcher": "$gcc",
+      "detail": "Configure and build Release"
+    },
+    {
+      "label": "CMake: Clean Debug",
+      "type": "process",
+      "command": "cmake",
+      "args": [
+        "--build", "build/debug",
+        "--target", "clean"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$gcc",
+      "detail": "Clean Debug build outputs but retain CMake configuration"
+    },
+    {
+      "label": "CMake: Clean Release",
+      "type": "process",
+      "command": "cmake",
+      "args": [
+        "--build", "build/release",
+        "--target", "clean"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": "$gcc",
+      "detail": "Clean Release build outputs but retain CMake configuration"
+    },
+    {
+      "label": "CMake: Delete Build Directories",
+      "type": "process",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "rm -rf build/debug build/release"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "detail": "Delete CMake caches and generated build trees"
+    }
+  ]
+}
